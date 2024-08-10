@@ -26,8 +26,8 @@ import (
 )
 
 var (
-	Version = "0.0.0"
-	Release = "development"
+	Version = "0.3.0"
+	Release = "trunk"
 )
 
 func init() {

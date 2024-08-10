@@ -20,9 +20,9 @@
 -include .env
 #export
 
-BIN_NAME ?= gassc
-UNTAGGED_VERSION ?= v0.2.6
-UNTAGGED_COMMIT ?= 0000000000
+BIN_NAME         ?= gassc
+UNTAGGED_VERSION ?= v0.3.0
+UNTAGGED_COMMIT  ?= 0000000000
 
 CLEAN_FILES     ?= "${BIN_NAME}" ${BIN_NAME}.*.* pprof.{proxy,repos,watch}
 DISTCLEAN_FILES ?=
