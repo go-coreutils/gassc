@@ -1,3 +1,7 @@
+[![Go](https://img.shields.io/badge/Go-v1.22.6-blue.svg)](https://go.dev)
+[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](https://pkg.go.dev/github.com/go-coreutils/gassc)
+[![GoReportCard](https://goreportcard.com/badge/github.com/go-coreutils/gassc)](https://goreportcard.com/report/github.com/go-coreutils/gassc)
+
 # gassc - Go sass compiler
 
 This is the SCSS compiler used by [Go-Enjin] theme features.
