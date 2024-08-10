@@ -15,13 +15,9 @@
 package main
 
 import (
-	"crypto/sha256"
 	"fmt"
-	"io"
 	"os"
-	"os/exec"
 	"path/filepath"
-	"strings"
 
 	"github.com/bep/golibsass/libsass"
 	"github.com/urfave/cli/v2"
@@ -57,27 +53,11 @@ func init() {
 }
 
 func main() {
-	absPath, binHash := "", "0000000000"
-	if arg0 := os.Args[0]; arg0[0] == '/' || strings.HasPrefix(arg0, "./") || strings.HasPrefix(arg0, "..") {
-		if v, err := filepath.Abs(os.Args[0]); err == nil {
-			absPath = v
-		} else {
-			absPath = os.Args[0]
-		}
-	} else if v, err := exec.LookPath(os.Args[0]); err == nil {
-		absPath = v
-	}
-	if absPath != "" {
-		if v, err := FileHash64(absPath); err == nil {
-			binHash = v[:10]
-		}
-	}
-
 	app := &cli.App{
 		Name:        "gassc",
 		Usage:       "Go sass compiler",
 		Action:      action,
-		Version:     Version + " (" + Release + ") [" + binHash + "]",
+		Version:     Version + " (" + Release + ")",
 		UsageText:   "gassc [options] <source.scss>",
 		Description: "Simple libsass compiler.",
 		Flags: []cli.Flag{
@@ -133,20 +113,6 @@ func main() {
 		fmt.Printf("error: %v", err)
 		os.Exit(1)
 	}
-}
-
-func FileHash64(path string) (shasum string, err error) {
-	var f *os.File
-	if f, err = os.Open(path); err != nil {
-		return
-	}
-	defer func() { _ = f.Close() }()
-	h := sha256.New()
-	if _, err = io.Copy(h, f); err != nil {
-		return
-	}
-	shasum = fmt.Sprintf("%x", h.Sum(nil))
-	return
 }
 
 func action(ctx *cli.Context) (err error) {
