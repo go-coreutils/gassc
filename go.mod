@@ -1,6 +1,6 @@
 module github.com/go-coreutils/gassc
 
-go 1.20
+go 1.22.6
 
 require (
 	github.com/bep/golibsass v1.1.0
