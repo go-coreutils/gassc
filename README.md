@@ -1,65 +1,69 @@
-# gassc - Go-Enjin libsass compiler
+# gassc - Go sass compiler
 
-This is the SCSS compiler used by Go-Enjin theme features.
+This is the SCSS compiler used by [Go-Enjin] theme features.
 
 # Installation
 
-## plain Go install
-
 ``` shell
+# note: requires Go 1.22.6
 $ go install github.com/go-coreutils/gassc@latest
-```
-
-## apt install
-
-``` shell
-$ wget https://apt.go-enjin.org/apt-go-enjin-org_latest.deb
-$ sudo dpkg -i ./apt-go-enjin-org_latest.deb
-$ sudo apt update && sudo apt install gassc
-```
-
-## homebrew install
-
-``` shell
-$ brew tap go-enjin/tap
-$ brew install gassc
 ```
 
 # Usage
 
 ``` shell
-$ gassc --help
+> gassc --help
 NAME:
-   gassc - go-enjin sass compiler
+   gassc - Go sass compiler
 
 USAGE:
    gassc [options] <source.scss>
 
 VERSION:
-   v0.2.4 (00commit00) [00shasum00]
+   0.3.0 (trunk)
 
 DESCRIPTION:
-   Simple libsass compiler used by the go-enjin project
-
-AUTHOR:
-   The Go-Enjin Team <go.enjin.org@gmail.com>
+   Simple libsass compiler.
 
 GLOBAL OPTIONS:
-   --help, -h                                                         show help (default: false)
-   --include-path value, -I value [ --include-path value, -I value ]  add compiler include paths
-   --no-source-map, -M                                                do not include source-map output (embedded when output-file is "-") (default: false)
-   --output-file value, -O value                                      specify file to write, use "-" for stdout (default: "-")
-   --output-style value, -S value                                     set presentation of css output, must be one of: nested, expanded, compact or compressed (default: "nested")
-   --precision value, -P value                                        specify the floating point precision preserved during math operations (default: 10)
-   --release                                                          same as: --no-source-map --output-style=compressed (default: false)
-   --sass-syntax, -A                                                  use sass syntax, scss is default (default: false)
-   --version, -v                                                      print the version (default: false)
+   General
+
+   --help, -h, --usage
+   --version, -V
+
+   Outputs
+
+   --no-source-map, -M             do not include source-map output
+   --output-file value, -O value   specify file to write, use "-" for stdout
+                                     (default: "-")
+   --output-style value, -S value  nested, expanded, compact or compressed
+                                     (default: "nested")
+
+   Settings
+
+   --include-path value, -I value  add one (or more) include paths
+   --precision value, -P value     floating point precision
+                                     (default: 10)
+   --release                       same as: -M -S=compressed
+   --sass-syntax, -A               use sass instead of scss syntax
 ```
-
-# Authors
-
-The Go-Enjin Team
 
 # License
 
-Apache 2.0, see the LICENSE.md file.
+```
+Copyright 2024  The Go-CoreUtils Authors
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use file except in compliance with the License.
+You may obtain a copy of the license at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
+
+[Go-Enjin]: https://go-enjin.org
