@@ -1,4 +1,4 @@
-module github.com/go-enjin/gassc
+module github.com/go-coreutils/gassc
 
 go 1.20
 

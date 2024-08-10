@@ -7,7 +7,7 @@ This is the SCSS compiler used by Go-Enjin theme features.
 ## plain Go install
 
 ``` shell
-$ go install github.com/go-enjin/gassc@latest
+$ go install github.com/go-coreutils/gassc@latest
 ```
 
 ## apt install
