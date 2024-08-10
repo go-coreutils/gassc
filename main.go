@@ -25,12 +25,36 @@ import (
 
 	"github.com/bep/golibsass/libsass"
 	"github.com/urfave/cli/v2"
+
+	clcli "github.com/go-corelibs/cli"
 )
 
 var (
 	Version = "0.0.0"
 	Release = "development"
 )
+
+func init() {
+
+	cli.HelpFlag = &cli.BoolFlag{
+		Category: "General",
+		Name:     "help",
+		Aliases:  []string{"h", "usage"},
+	}
+
+	cli.VersionFlag = &cli.BoolFlag{
+		Category: "General",
+		Name:     "version",
+		Aliases:  []string{"V"},
+	}
+
+	cli.FlagStringer = clcli.NewFlagStringer().
+		PruneRepeats(true).
+		PruneDefaultBools(true).
+		DetailsOnNewLines(true).
+		Make()
+
+}
 
 func main() {
 	absPath, binHash := "", "0000000000"
@@ -51,52 +75,55 @@ func main() {
 
 	app := &cli.App{
 		Name:        "gassc",
-		Usage:       "go-enjin sass compiler",
+		Usage:       "Go sass compiler",
+		Action:      action,
 		Version:     Version + " (" + Release + ") [" + binHash + "]",
 		UsageText:   "gassc [options] <source.scss>",
-		Description: "Simple libsass compiler used by the go-enjin project",
-		Authors: []*cli.Author{{
-			Name:  "The Go-Enjin Team",
-			Email: "go.enjin.org@gmail.com",
-		}},
-		Action: action,
+		Description: "Simple libsass compiler.",
 		Flags: []cli.Flag{
 			&cli.PathFlag{
-				Name:    "output-file",
-				Usage:   "specify file to write, use \"-\" for stdout",
-				Value:   "-",
-				Aliases: []string{"O"},
+				Category: "Outputs",
+				Name:     "output-file",
+				Usage:    "specify file to write, use \"-\" for stdout",
+				Value:    "-",
+				Aliases:  []string{"O"},
 			},
 			&cli.StringFlag{
-				Name:    "output-style",
-				Usage:   "set presentation of css output, must be one of: nested, expanded, compact or compressed",
-				Value:   "nested",
-				Aliases: []string{"S"},
+				Category: "Outputs",
+				Name:     "output-style",
+				Usage:    "nested, expanded, compact or compressed",
+				Value:    "nested",
+				Aliases:  []string{"S"},
+			},
+			&cli.BoolFlag{
+				Category: "Outputs",
+				Name:     "no-source-map",
+				Usage:    "do not include source-map output",
+				Aliases:  []string{"M"},
 			},
 			&cli.StringSliceFlag{
-				Name:    "include-path",
-				Usage:   "add compiler include paths",
-				Aliases: []string{"I"},
+				Category: "Settings",
+				Name:     "include-path",
+				Usage:    "add one (or more) include paths",
+				Aliases:  []string{"I"},
 			},
 			&cli.BoolFlag{
-				Name:    "no-source-map",
-				Usage:   "do not include source-map output (embedded when output-file is \"-\")",
-				Aliases: []string{"M"},
-			},
-			&cli.BoolFlag{
-				Name:    "sass-syntax",
-				Usage:   "use sass syntax, scss is default",
-				Aliases: []string{"A"},
+				Category: "Settings",
+				Name:     "sass-syntax",
+				Usage:    "use sass instead of scss syntax",
+				Aliases:  []string{"A"},
 			},
 			&cli.IntFlag{
-				Name:    "precision",
-				Usage:   "specify the floating point precision preserved during math operations",
-				Value:   10,
-				Aliases: []string{"P"},
+				Category: "Settings",
+				Name:     "precision",
+				Usage:    "floating point precision",
+				Value:    10,
+				Aliases:  []string{"P"},
 			},
 			&cli.BoolFlag{
-				Name:  "release",
-				Usage: "same as: --no-source-map --output-style=compressed",
+				Category: "Settings",
+				Name:     "release",
+				Usage:    "same as: -M -S=compressed",
 			},
 		},
 		HideHelpCommand:      true,
